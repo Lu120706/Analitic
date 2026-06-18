@@ -18,7 +18,7 @@ const Comercio = () => {
         <Layout moduleMode="comercio">
             <div className="row text-white">
                 <div className="col-md-6">
-                    {data.campanas && data.campanas.map((item, i) => (
+                    {data.campañas && data.campañas.map((item, i) => (
                         <p key={i} className="mb-2">{item}</p>
                     ))}
                 </div>
@@ -33,3 +33,4 @@ const Comercio = () => {
 };
 
 export default Comercio;
+

@@ -14,23 +14,26 @@ const Login = () => {
         e.preventDefault();
         setError(null);
         try {
-            const response = await axios.post('http://localhost:5000/login', {
-                usuario,
+            const response = await axios.post('http://localhost:5000/api/login', {
+                email: usuario,
                 password
             }, { withCredentials: true });
 
             if (response.data.status === 'success') {
+                localStorage.setItem('usuario_email', usuario);
+                localStorage.setItem('nombre_empresa', response.data.empresa); // Guardamos la empresa
+                localStorage.setItem('saludo', response.data.saludo); // Guardamos el saludo
                 navigate('/dashboard');
             }
         } catch (err) {
-            setError('Credenciales inválidas o servidor no disponible');
+            setError('Credenciales invalidas o servidor no disponible');
         }
     };
 
     return (
         <div className="login-page-bg">
             <div className="login-box text-center">
-                <h2>Iniciar Sesión</h2>
+                <h2>Iniciar Sesion</h2>
                 {error && <div className="alert alert-danger text-start">{error}</div>}
                 
                 <form onSubmit={handleLogin}>
@@ -64,3 +67,4 @@ const Login = () => {
 };
 
 export default Login;
+

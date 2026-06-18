@@ -28,3 +28,4 @@ const Contabilidad = () => {
 };
 
 export default Contabilidad;
+

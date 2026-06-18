@@ -1,46 +1,103 @@
 .navbar-custom {
     background-color: #ffeb3b !important;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    padding-top: 0.0rem !important; 
-    padding-bottom: 0.1rem !important;
+    padding: 0.5rem 1rem !important;
 }
 
-.navbar-custom .nav-link, 
-.navbar-custom .navbar-brand,
-.navbar-custom .nav-link.dropdown-toggle {
+.navbar-brand {
     color: #333 !important;
-    font-weight: bold;
-    padding-top: 0.7rem !important;
-    padding-bottom: 0.7rem !important;
+    font-weight: bold !important;
 }
 
-.navbar-custom .nav-link:hover,
-.navbar-custom .navbar-brand:hover,
-.navbar-custom .dropdown-item:hover {
-    color: #000 !important;
+#basic-nav-dropdown {
+    color: #333 !important;
 }
 
-#basic-nav-dropdown + .dropdown-menu {
-    left: 0 !important;
-    right: auto !important;
-    min-width: 150px !important;
+/* Estilo para menús desplegables (informes y perfil) */
+.dropdown-menu {
+    background-color: white !important;
+    border: 1px solid #ccc !important;
+    border-radius: 5px !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
     font-size: 0.9rem !important;
+    padding: 10px !important;
 }
 
-#user-nav-dropdown + .dropdown-menu {
-    left: auto !important;
-    right: 0 !important;
-    min-width: 180px !important;
+.dropdown-item {
+    color: #333 !important;
+    padding: 8px 15px !important;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa !important;
+}
+
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background-color: #ffeb3b !important;
+        padding: 0 !important;
+    }
+    
+    .navbar-nav {
+        background-color: #ffeb3b !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .navbar-nav .nav-link {
+        color: #333 !important;
+        padding: 10px 15px !important;
+        display: block !important;
+    }
+}
+
+
+.navbar-brand {
+    color: #333 !important;
+    font-weight: bold !important;
+}
+
+#basic-nav-dropdown {
+    color: #333 !important;
+}
+
+/* Estilo para menús desplegables (informes y perfil) */
+.dropdown-menu {
+    background-color: white !important;
+    border: 1px solid #ccc !important;
+    border-radius: 5px !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
     font-size: 0.9rem !important;
 }
 
 .dropdown-item {
-    padding: 5px 10px !important;
+    color: #333 !important;
+    padding: 8px 15px !important;
 }
 
-#basic-navbar-nav .navbar-nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end !important;
-    width: 100%;
+.dropdown-item:hover {
+    background-color: #f8f9fa !important;
+}
+
+/* Solo afecta a los links de navegación en móvil */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background-color: #ffeb3b;
+        padding: 15px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    /* El contenedor de los módulos (los links) dentro del menú */
+    .navbar-collapse .navbar-nav {
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 10px;
+        align-items: flex-end !important;
+    }
 }

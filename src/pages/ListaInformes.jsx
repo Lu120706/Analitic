@@ -54,3 +54,4 @@ const ListaInformes = () => {
 };
 
 export default ListaInformes;
+

@@ -26,27 +26,22 @@ const Layout = ({ children, moduleMode = 'default' }) => {
             <div style={{ backgroundColor: 'rgba(110, 109, 109, 0.25)', minHeight: '100vh' }}>
                 <Navigation moduleMode={moduleMode} />
                 <div className="container-fluid pt-3">
-                        {moduleMode !== 'informes' && data && (
-                            <div className="d-flex justify-content-center mb-4" style={{ color: 'black', width: '100%' }}>
-                                <h5>{data.saludo}, {data.nombre_usuario}</h5>
-                            </div>
-                        )}
                     <div className="d-flex">
                         <div className="flex-grow-1">
                             {children}
                         </div>
-                        {moduleMode !== 'default' && moduleMode !== 'informes' && data?.logos && (
-                            <div className="sidebar-right" style={{ marginTop: '20px', paddingRight: '40px' }}>
+                        {data?.logos && (
+                            <div className="sidebar-right-logos">
                                 {data.logos.map((logo, i) => (
                                     <button 
                                         key={i} 
                                         className="logo-button"
-                                        style={{ background: 'none', border: 'none', padding: '10px 0', display: 'block' }}
+                                        onClick={() => window.location.href = `/informes/${logo.nombre}`}
                                     >
                                         <img 
                                             src={logo.url} 
                                             alt={logo.nombre} 
-                                            className="sidebar-logo-item" 
+                                            className="logo-item" 
                                         />
                                     </button>
                                 ))}

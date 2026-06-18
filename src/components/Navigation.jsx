@@ -7,19 +7,21 @@ import '../styles/Navigation.css';
 
 const Navigation = ({ moduleMode = 'default' }) => {
     const [organizacion, setOrganizacion] = useState('');
+    const [rol, setRol] = useState('');
+    const [data, setData] = useState(null);
 
     useEffect(() => {
+        const empresaGuardada = localStorage.getItem('nombre_empresa');
+        if (empresaGuardada) setOrganizacion(empresaGuardada);
+
         axios.get('http://localhost:5000/api/dashboard', { withCredentials: true })
             .then(res => {
-                if (res.data) {
-                    const nombreEmpresa = res.data.empresa || 'ORGANIZACION GYJ';
-                    setOrganizacion(nombreEmpresa);
-                    localStorage.setItem('nombre_empresa', nombreEmpresa);
-                }
+                setRol(res.data.rol || '');
             })
-            .catch(err => console.error("Error al cargar organización:", err));
+            .catch(err => console.error("Error al cargar dashboard:", err));
     }, []);
 
+    // Removemos el console.log que causaba ruido
     const renderNavLinks = () => {
         if (moduleMode === 'contraloria') {
             return (
@@ -33,8 +35,8 @@ const Navigation = ({ moduleMode = 'default' }) => {
         if (moduleMode === 'contabilidad') {
             return (
                 <>
-                    <Nav.Link as={Link} to="/contabilidad/auditoria">Auditoría</Nav.Link>
-                    <Nav.Link as={Link} to="/contabilidad/nomina">Nómina</Nav.Link>
+                    <Nav.Link as={Link} to="/contabilidad/auditoria">Auditoria</Nav.Link>
+                    <Nav.Link as={Link} to="/contabilidad/nomina">Nomina</Nav.Link>
                 </>
             );
         }
@@ -88,9 +90,9 @@ const Navigation = ({ moduleMode = 'default' }) => {
                 <Nav.Link as={Link} to="/abastecimiento">Abastecimiento</Nav.Link>
                 <Nav.Link as={Link} to="/comercio">Comercio</Nav.Link>
                 <Nav.Link as={Link} to="/contabilidad">Contabilidad</Nav.Link>
-                <Nav.Link as={Link} to="/contraloria">Contraloría</Nav.Link>
+                <Nav.Link as={Link} to="/contraloria">Contraloria</Nav.Link>
                 <Nav.Link as={Link} to="/recursos_humanos">RRHH</Nav.Link>
-                <Nav.Link as={Link} to="/tesoreria">Tesorería</Nav.Link>
+                <Nav.Link as={Link} to="/tesoreria">Tesoreria</Nav.Link>
                 <Nav.Link as={Link} to="/tic">TIC</Nav.Link>
             </>
         );
@@ -98,21 +100,22 @@ const Navigation = ({ moduleMode = 'default' }) => {
 
     return (
         <Navbar expand="lg" sticky="top" className="mb-4 navbar-custom">
-            <Container fluid className="px-0">
-                <Nav className="me-2" style={{ paddingLeft: '20px' }}>
-                    <NavDropdown title="☰" id="basic-nav-dropdown">    
+            <Container fluid>
+                <div className="d-flex align-items-center">
+                    <NavDropdown title="☰  " id="basic-nav-dropdown" className="me-2">    
                         <NavDropdown.Item as={Link} to="/informe/ventas">Ventas</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/informe/financiero">Financiero</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/contabilidad">Contabilidad</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/corte-laminas">Corte de laminas</NavDropdown.Item>
                     </NavDropdown>
-                </Nav>
-                <Navbar.Brand as={Link} to="/dashboard" style={{ marginLeft: '15px', color: '#333', fontWeight: 'bold' }}>
-                    {organizacion || 'ORGANIZACION GYJ'}
-                </Navbar.Brand>
+                    <Navbar.Brand as={Link} to="/dashboard" style={{ color: '#333', fontWeight: 'bold' }}>
+                        {organizacion || 'ORGANIZACION GYJ'}
+                    </Navbar.Brand>
+                </div>
+                
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="ms-auto" style={{ marginRight: '15px', alignItems: 'center', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', width: '100%' }}>
+                    <Nav className="ms-auto align-items-center">
                         {renderNavLinks()}
                         <NavDropdown 
                             title={<img src="https://cdn.phototourl.com/free/2026-05-28-46de0ce8-53a3-4b0d-9a8b-582f91e091f6.png" alt="Perfil" style={{ width: '30px', height: '30px', borderRadius: '50%' }} />} 
@@ -120,8 +123,17 @@ const Navigation = ({ moduleMode = 'default' }) => {
                             className="fw-bold" 
                             align="end"
                         >
+                            {/* Noticias visible para todos */}
                             <NavDropdown.Item as={Link} to="/noticias">Noticias</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/comentarios">Comentarios</NavDropdown.Item>
+
+                            {/* Solo Admin ve las opciones de gestión */}
+                            {rol === 'admin' && (
+                                <>
+                                    <NavDropdown.Item as={Link} to="/crear-noticia">Crear Noticia</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/comentarios">Comentarios</NavDropdown.Item>
+                                </>
+                            )}
+                            
                             <NavDropdown.Divider />
                             <NavDropdown.Item className="text-danger fw-bold" onClick={() => window.location.href = '/login'}>Salir</NavDropdown.Item>
                         </NavDropdown>
@@ -133,3 +145,4 @@ const Navigation = ({ moduleMode = 'default' }) => {
 };
 
 export default Navigation;
+

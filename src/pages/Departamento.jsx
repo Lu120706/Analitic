@@ -36,3 +36,4 @@ const Departamento = () => {
 };
 
 export default Departamento;
+

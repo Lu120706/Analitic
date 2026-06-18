@@ -24,16 +24,20 @@ const Abastecimiento = () => {
 
     return (
         <Layout moduleMode="abastecimiento">
-            <div className="row text-white">
-                <div className="col-md-6">
-                    {data.campanas && data.campanas.map((item, i) => (
-                        <p key={i} className="mb-2">{item}</p>
-                    ))}
-                </div>
-                <div className="col-md-6">
-                    {data.nomina && data.nomina.map((item, i) => (
-                        <p key={i} className="mb-2">{item}</p>
-                    ))}
+            <div className="dashboard-container">
+                <div className="main-content">
+                    <div className="row text-white">
+                        <div className="col-md-6">
+                            {data.campañas && data.campañas.map((item, i) => (
+                                <p key={i} className="mb-2">{item}</p>
+                            ))}
+                        </div>
+                        <div className="col-md-6">
+                            {data.nomina && data.nomina.map((item, i) => (
+                                <p key={i} className="mb-2">{item}</p>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </Layout>
@@ -41,3 +45,4 @@ const Abastecimiento = () => {
 };
 
 export default Abastecimiento;
+

@@ -12,6 +12,8 @@ import RecursosHumanos from './pages/RecursosHumanos';
 import Tesoreria from './pages/Tesoreria';
 import TIC from './pages/TIC';
 import ListaInformes from './pages/ListaInformes';
+import Noticias from './components/Noticias/NoticiasView';
+import CrearNoticia from './components/Noticias/CrearNoticia';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -77,6 +79,16 @@ function App() {
         <Route path="/departamento/:nombre" element={
           <ProtectedRoute>
             <Departamento />
+          </ProtectedRoute>
+        } />
+        <Route path="/noticias" element={
+          <ProtectedRoute requiredRole="admin">
+            <Noticias />
+          </ProtectedRoute>
+        } />
+        <Route path="/crear-noticia" element={
+          <ProtectedRoute requiredRole="admin">
+            <CrearNoticia />
           </ProtectedRoute>
         } />
         <Route path="/" element={<Navigate to="/login" />} />

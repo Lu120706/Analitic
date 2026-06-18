@@ -32,3 +32,4 @@ const InformeVentas = () => {
 };
 
 export default InformeVentas;
+
